@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="18/favicon.png" type="image/png">
+    <title>. . .</title>
+    <style>
+        body {
+            background-color: #161721;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header-text {
+            text-align: center;
+            color: #ffffff;
+            padding: 60px 25px;
+            font-size: 24px;
+            font-family: "Sitka";
+        }
+        
+        .image-block {
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .image-block img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .timer-block {
+            text-align: center;
+            color: #ffffff;
+            padding: 40px 20px;
+            font-size: 32px;
+            font-family: "Sitka";
+        }
+        
+        .timer-display {
+            font-size: 48px;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="header-text">
+        Сколько времени прошло с момента твоего рождения?
+    </div>
+    
+    <div class="image-block">
+        <img src="Untitled.gif" alt="Image">
+    </div>
+    
+    <div class="timer-block">
+        <div>Времени осталось...</div>
+        <div class="timer-display" id="timer">00:00:00:00</div>
+    </div>
+    
+    <script>
+        function updateTimer() {
+            // Set the target date to August 15th, 00:00 (midnight)
+            const year = new Date().getFullYear();
+            let targetDate = new Date(year, 7, 15, 0, 0, 0).getTime();
+            
+            // If the date has already passed this year, target next year
+            if (targetDate < new Date().getTime()) {
+                targetDate = new Date(year + 1, 7, 15, 0, 0, 0).getTime();
+            }
+            
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            if (timeLeft < 0) {
+                document.getElementById('timer').textContent = '00:00:00:00';
+                return;
+            }
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            const timerDisplay = 
+                String(days).padStart(2, '0') + ':' +
+                String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
+            
+            document.getElementById('timer').textContent = timerDisplay;
+        }
+        
+        // Update timer immediately and then every second
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

@@ -1,2 +1,0 @@
-# thequarry
-a specific website.

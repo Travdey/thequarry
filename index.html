@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="imgs/favicon.png" type="image/png">
+    <link rel="icon" href="/imgs/favicon.png" type="image/png">
     <title>. . .</title>
     <style>
+        @font-face {
+            font-family: "Bell Gothic Bold";
+            src: url("fonts/Bell-Gothic_Bold.ttf") format("truetype");
+            font-weight: bold;
+            font-style: normal;
+        }
+
         body {
-            background-color: #161722;
             margin: 0;
             padding: 0px;
+            font-family: "Bell Gothic Bold", "Bell-Gothic Std", sans-serif;
+            background: #000000;
+            min-height: 100vh;
         }
         
         .header-text {
@@ -17,58 +26,182 @@
             color: #ffffff;
             padding: 60px 25px;
             font-size: 24px;
-            font-family: "Bell-Gothic Std", "Century", century-gothic, sans-serif;
-            src: url("fonts/Bell-Gothic_Bold.ttf") format("opentype");
+            opacity: 0;
+            transition: opacity 6s ease;
         }
-        
-        .reveal-block {
+
+        .header-text.is-visible {
+            opacity: 1;
+        }
+
+        .button-info {
+            margin-top: 128px;
             text-align: center;
             color: #ffffff;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 6s ease, transform 6s ease;
+        }
+
+        .button-info.is-visible {
+            opacity: 0.95;
+            transform: translateY(0);
+        }
+
+        .button-info .today-date {
+            font-size: 24px;
+            margin-bottom: 4px;
+            opacity: 0.95;
+        }
+
+        .button-info .next-dialogue {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .button-info .active-timer {
+            display: inline-block;
+            font-size: 48px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            padding: 4px 8px;
+        }
+
+        .reveal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 760px;
+            margin: 0 auto;
             padding: 20px 30px 0;
-            font-family: "Bell-Gothic Std", "Century", century-gothic, sans-serif;
-            src: url("fonts/Bell-Gothic_Bold.ttf") format("opentype");
+        }
+
+        .reveal-item {
+            text-align: center;
+            color: #ffffff;
+            opacity: 0;
+            transition: opacity 6s ease;
+        }
+
+        .reveal-item.is-visible {
+            opacity: 1;
         }
 
         .reveal-trigger {
-            background: linear-gradient(135deg, #ff7a59, #ff4d6d);
+            width: 100%;
+            max-width: 260px;
+            background: linear-gradient(135deg, #000000, #000000);
             color: #ffffff;
-            border: none;
-            border-radius: 999px;
-            padding: 12px 24px;
-            font-size: 16px;
+            border: 1px solid rgba(255, 255, 255, 1);
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 20px;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 77, 109, 0.25);
+            box-shadow: 0 8px 0px rgb(255, 255, 255);
+            font-family: inherit;
+        }
+
+        .reveal-trigger:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .reveal-timer {
+            margin-top: 10px;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            opacity: 0.95;
         }
 
         .reveal-panel {
-            display: none;
-            margin-top: 16px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 0;
+            padding: 0 20px;
+            background: rgba(0, 0, 0, 1);
+            border: 1px solid rgb(255, 255, 255);;
             border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 0px rgb(255, 255, 255);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: max-height 0.5s ease, padding 0.5s ease, margin-top 1s ease, opacity 1s ease;
         }
 
         .reveal-panel.is-open {
-            display: block;
+            max-height: 1000px;
+            margin-top: 16px;
+            padding: 20px;
+            opacity: 1;
+        }
+
+        .reveal-panel h3 {
+            margin: 0 0 8px;
+            font-size: 24px;
         }
 
         .reveal-panel p {
             margin: 8px 0;
             line-height: 1.6;
+            font-family: inherit;
+            font-size: 24px;
+        }
+
+        .reveal-note {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .reveal-media {
+            width: 100%;
+            display: block;
+            margin-top: 16px;
         }
 
         .reveal-media img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            border-radius: 12px;
-            margin-top: 12px;
+            border-radius: 16px;
+            display: block;
         }
         
         .image-block {
             text-align: center;
             padding: 40px 30px;
+            opacity: 0;
+            transition: opacity 6s ease;
+        }
+
+        .image-block.is-visible {
+            opacity: 1;
+        }
+
+        .countdown-summary {
+            text-align: center;
+            color: #ffffff;
+            max-width: 760px;
+            margin: 0 auto 10px;
+            padding: 0 30px;
+            transition: opacity 6s ease, transform 6s ease;
+        }
+
+        .today-date {
+            font-size: 24px;
+            margin-bottom: 6px;
+            opacity: 0.95;
+        }
+
+        .next-dialogue {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .next-dialogue span {
+            font-weight: bold;
+            font-size: 48px;
+            letter-spacing: 2px;
         }
         
         .image-block img {
@@ -81,8 +214,12 @@
             color: #ffffff;
             padding: 40px 20px;
             font-size: 32px;
-            font-family: "Bell-Gothic Std", "Century", century-gothic, sans-serif;
-            src: url("fonts/Bell-Gothic_Bold.ttf") format("opentype");
+            opacity: 0;
+            transition: opacity 6s ease;
+        }
+
+        .timer-block.is-visible {
+            opacity: 1;
         }
         
         .timer-display {
@@ -90,83 +227,186 @@
             margin: 20px 0;
             letter-spacing: 2px;
         }
+
+        .footer {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 12s ease;
+        }
+
+        .footer.is-visible {
+            opacity: 1;
+        }
+
+        .footer img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+        }
     </style>
 
 </head>
 <body>
     <div class="header-text">
-        Сколько времени прошло с момента твоего рождения?
+        Типичное место для ежедневного открытия пронумерованных РЕЧЕВЫХ окон. Что тут может быть?
     </div>
 
-    <div class="reveal-block">
-        <button class="reveal-trigger" id="revealButton" type="button" aria-expanded="false" aria-controls="revealPanel">
-            Показать скрытое содержимое
-        </button>
-        <div class="reveal-panel" id="revealPanel">
-            <p>Это блок, который раскрывается по нажатию кнопки.</p>
-            <p>Здесь можно разместить текст, изображение и другие медиа.</p>
-            <div class="reveal-media">
-                <img src="imgs/Untitled.gif" alt="Revealed media">
-            </div>
-        </div>
+
+    <div class="reveal-list" id="revealList"></div>
+
+    <div class="button-info" id="summaryBlock">
+        <div class="today-date">Сегодняшняя дата это ...</div>
+        <div class="next-dialogue">Увидимся спустя день на этом сайте для появления новой РЕЧИ через</div>
+        <div class="active-timer" id="summaryTimer" data-target-time="0">00:00:00</div>
     </div>
-    
-    <div class="image-block">
-        <img src="imgs/Untitled.gif" alt="Image">
-    </div>
-    
-    <div class="timer-block">
-        <div>Времени осталось...</div>
-        <div class="timer-display" id="timer">00:00:00:00</div>
+
+    <div class="footer" id="footer">
+        <img src="/imgs/july15.png" alt="Footer GIF">
     </div>
     
     <script>
-        function updateTimer() {
-            // Set the target date to August 15th, 00:00 (midnight)
-            const year = new Date().getFullYear();
-            let targetDate = new Date(year, 7, 15, 0, 0, 0).getTime();
-            
-            // If the date has already passed this year, target next year
-            if (targetDate < new Date().getTime()) {
-                targetDate = new Date(year + 1, 7, 15, 0, 0, 0).getTime();
+        function formatCountdown(timeLeft) {
+            if (timeLeft <= 0) {
+                return '00:00:00';
             }
-            
-            const now = new Date().getTime();
-            const timeLeft = targetDate - now;
-            
-            if (timeLeft < 0) {
-                document.getElementById('timer').textContent = '00:00:00:00';
-                return;
-            }
-            
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            
-            const timerDisplay = 
-                String(days).padStart(2, '0') + ':' +
-                String(hours).padStart(2, '0') + ':' +
+
+            return String(hours).padStart(2, '0') + ':' +
                 String(minutes).padStart(2, '0') + ':' +
                 String(seconds).padStart(2, '0');
-            
-            document.getElementById('timer').textContent = timerDisplay;
         }
-        
-        const revealButton = document.getElementById('revealButton');
-        const revealPanel = document.getElementById('revealPanel');
 
-        if (revealButton && revealPanel) {
-            revealButton.addEventListener('click', () => {
-                const isOpen = revealPanel.classList.toggle('is-open');
-                revealButton.textContent = isOpen ? '-- 1 --' : '-- 1 --';
-                revealButton.setAttribute('aria-expanded', String(isOpen));
+        function updateItemTimers() {
+            document.querySelectorAll('.reveal-timer, .active-timer').forEach((timer) => {
+                const targetTime = Number(timer.dataset.targetTime);
+                if (!targetTime) {
+                    return;
+                }
+
+                timer.textContent = formatCountdown(targetTime - Date.now());
             });
         }
 
-        // Update timer immediately and then every second
-        updateTimer();
-        setInterval(updateTimer, 1000);
+        function updateNextDialogueInfo() {
+            const now = new Date();
+            const summaryTimer = document.getElementById('summaryTimer');
+            const summaryDate = document.querySelector('#summaryBlock .today-date');
+            const currentDayIndex = now >= revealStartDate
+                ? Math.min(revealTasks.length - 1, Math.floor((now - revealStartDate) / (1000 * 60 * 60 * 24)))
+                : -1;
+            const targetTime = now < revealStartDate
+                ? revealStartDate.getTime()
+                : new Date(revealStartDate.getTime() + (currentDayIndex + 1) * 86400000).getTime();
+
+            if (summaryDate) {
+                summaryDate.textContent = `Сегодняшняя дата это ${now.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}.`;
+            }
+
+            if (summaryTimer) {
+                summaryTimer.dataset.targetTime = targetTime;
+                summaryTimer.textContent = formatCountdown(targetTime - Date.now());
+            }
+        }
+        
+        const revealList = document.getElementById('revealList');
+        const revealStartDate = new Date(new Date().getFullYear(), 6, 15, 0, 0, 0);
+        const revealTasks = [
+            { title: '— 1 —', description: '- Стартовая точка. Как говорили раньше: "В начале было слово", но, как оказалось, в начале была "РЕЧЬ 1". Надо же начать очередную загадочную вещь с чего-то, хах!' },
+        ];
+
+        function renderRevealBlocks() {
+            if (!revealList) {
+                return;
+            }
+
+            const header = document.querySelector('.header-text');
+            const footer = document.getElementById('footer');
+
+            if (header) {
+                window.setTimeout(() => header.classList.add('is-visible'), 250);
+            }
+
+            if (footer) {
+                window.setTimeout(() => footer.classList.add('is-visible'), 250);
+            }
+
+            const summaryBlock = document.getElementById('summaryBlock');
+            if (summaryBlock) {
+                window.setTimeout(() => summaryBlock.classList.add('is-visible'), 450);
+            }
+
+            const now = new Date();
+            const currentDayIndex = now >= revealStartDate
+                ? Math.min(revealTasks.length - 1, Math.floor((now - revealStartDate) / (1000 * 60 * 60 * 24)))
+                : 0;
+            revealList.innerHTML = '';
+
+            revealTasks.forEach((task, index) => {
+                const unlockDate = new Date(revealStartDate);
+                unlockDate.setDate(revealStartDate.getDate() + index);
+                const nextUnlockDate = new Date(unlockDate);
+                nextUnlockDate.setDate(unlockDate.getDate() + 1);
+                const isUnlocked = true;
+
+                // If you want to add an image to a block, add this HTML inside the reveal-panel of that block:
+                // <div class="reveal-media"><img src="/imgs/your-image.png" alt="Описание изображения"></div>
+                const mediaContent = index === 1
+                    ? `<div class="reveal-media"><img src="/imgs/test_image_hell_yeah.png" alt="Example image"></div>`
+                    : '';
+
+                const extraTextAfterImage = index === 2
+                    ? '<p class="reveal-text-after">Это дополнительный текст после изображения.</p>'
+                    : '';
+
+                const item = document.createElement('div');
+                item.className = 'reveal-item';
+                item.innerHTML = `
+                    <button class="reveal-trigger" type="button" ${isUnlocked ? '' : 'disabled'} aria-expanded="false" aria-controls="revealPanel-${index}">
+                        —— РЕЧЬ ${index + 1} ——
+                    </button>
+                    <div class="reveal-panel" id="revealPanel-${index}">
+                        <h3>${task.title}</h3>
+                        <p>${task.description}</p>
+                        ${index === 2 ? `<div class="reveal-media"><img src="/imgs/test_image_hell_yeah.png" alt="Example image"></div>` : mediaContent}
+                        ${extraTextAfterImage}
+                        <p class="reveal-note">${isUnlocked ? '' : `Unlocks on ${unlockDate.toLocaleDateString('ru-RU')}`}</p>
+                    </div>
+                `;
+
+                revealList.appendChild(item);
+
+                window.setTimeout(() => {
+                    item.classList.add('is-visible');
+                }, 250 + index * 120);
+
+                const button = item.querySelector('.reveal-trigger');
+                const panel = item.querySelector('.reveal-panel');
+
+                if (button && panel) {
+                    button.addEventListener('click', () => {
+                        if (!isUnlocked) {
+                            return;
+                        }
+                        const isOpen = panel.classList.toggle('is-open');
+                        button.setAttribute('aria-expanded', String(isOpen));
+                    });
+                }
+            });
+        }
+
+        renderRevealBlocks();
+        updateItemTimers();
+        updateNextDialogueInfo();
+        setInterval(updateItemTimers, 1000);
+        setInterval(updateNextDialogueInfo, 1000);
+        setInterval(renderRevealBlocks, 60000);
     </script>
 </body>
 </html>

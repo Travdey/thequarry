@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./thequarrywebsite/folder/favicon.png" type="image/png">
+    <link rel="icon" href="imgs/favicon.png" type="image/png">
     <title>. . .</title>
     <style>
         body {
             background-color: #161722;
             margin: 0;
-            padding: 10px;
+            padding: 0px;
         }
         
         .header-text {
@@ -17,14 +17,16 @@
             color: #ffffff;
             padding: 60px 25px;
             font-size: 24px;
-            font-family: "Sitka";
+            font-family: "Bell-Gothic Std", "Century", century-gothic, sans-serif;
+            src: url("fonts/Bell-Gothic_Bold.ttf") format("opentype");
         }
         
         .reveal-block {
             text-align: center;
             color: #ffffff;
             padding: 20px 30px 0;
-            font-family: "Sitka";
+            font-family: "Bell-Gothic Std", "Century", century-gothic, sans-serif;
+            src: url("fonts/Bell-Gothic_Bold.ttf") format("opentype");
         }
 
         .reveal-trigger {
@@ -79,7 +81,8 @@
             color: #ffffff;
             padding: 40px 20px;
             font-size: 32px;
-            font-family: "Sitka";
+            font-family: "Bell-Gothic Std", "Century", century-gothic, sans-serif;
+            src: url("fonts/Bell-Gothic_Bold.ttf") format("opentype");
         }
         
         .timer-display {
@@ -103,13 +106,13 @@
             <p>Это блок, который раскрывается по нажатию кнопки.</p>
             <p>Здесь можно разместить текст, изображение и другие медиа.</p>
             <div class="reveal-media">
-                <img src="./thequarrywebsite/folder/Untitled.gif" alt="Revealed media">
+                <img src="imgs/Untitled.gif" alt="Revealed media">
             </div>
         </div>
     </div>
     
     <div class="image-block">
-        <img src="./thequarrywebsite/folder/Untitled.gif" alt="Image">
+        <img src="imgs/Untitled.gif" alt="Image">
     </div>
     
     <div class="timer-block">
@@ -156,7 +159,7 @@
         if (revealButton && revealPanel) {
             revealButton.addEventListener('click', () => {
                 const isOpen = revealPanel.classList.toggle('is-open');
-                revealButton.textContent = isOpen ? 'Скрыть содержимое' : 'Показать скрытое содержимое';
+                revealButton.textContent = isOpen ? '-- 1 --' : '-- 1 --';
                 revealButton.setAttribute('aria-expanded', String(isOpen));
             });
         }

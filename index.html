@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/imgs/favicon.png" type="image/png">
+    <link rel="icon" href="./imgs/favicon.png" type="image/png">
     <title>. . .</title>
     <style>
         @font-face {
@@ -265,7 +265,7 @@
     </div>
 
     <div class="footer" id="footer">
-        <img src="/imgs/july15.png" alt="Footer GIF">
+        <img src="./imgs/july15.png" alt="Footer GIF">
     </div>
     
     <script>
@@ -358,7 +358,7 @@
                 // If you want to add an image to a block, add this HTML inside the reveal-panel of that block:
                 // <div class="reveal-media"><img src="/imgs/your-image.png" alt="Описание изображения"></div>
                 const mediaContent = index === 1
-                    ? `<div class="reveal-media"><img src="/imgs/test_image_hell_yeah.png" alt="Example image"></div>`
+                    ? `<div class="reveal-media"><img src="./imgs/test_image_hell_yeah.png" alt="Example image"></div>`
                     : '';
 
                 const extraTextAfterImage = index === 2
@@ -374,7 +374,7 @@
                     <div class="reveal-panel" id="revealPanel-${index}">
                         <h3>${task.title}</h3>
                         <p>${task.description}</p>
-                        ${index === 2 ? `<div class="reveal-media"><img src="/imgs/test_image_hell_yeah.png" alt="Example image"></div>` : mediaContent}
+                        ${index === 2 ? `<div class="reveal-media"><img src="./imgs/test_image_hell_yeah.png" alt="Example image"></div>` : mediaContent}
                         ${extraTextAfterImage}
                         <p class="reveal-note">${isUnlocked ? '' : `Unlocks on ${unlockDate.toLocaleDateString('ru-RU')}`}</p>
                     </div>
